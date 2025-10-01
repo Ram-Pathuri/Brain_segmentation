@@ -71,6 +71,7 @@ This project implements an open-source AI framework for **automated 3D brain seg
 ---
 
 ## Attached Architecture Diagram
+![Brain Segmentation Architecture](https://github.com/Ram-Pathuri/Brain_segmentation/blob/main/brain_architecture.png)
 
 
 ---
