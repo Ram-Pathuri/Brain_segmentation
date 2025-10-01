@@ -46,31 +46,7 @@ This project implements an open-source AI framework for **automated 3D brain seg
   - Models deployed as SageMaker endpoints.
   - An example sklearn pipeline implemented for converting raw inputs to predictions for easier deployment.
 
-## File Structure (suggested)
-```
-brain_segmentation/
-├── data/
-│   ├── raw/                # raw MRI volumes
-│   ├── processed/          # resampled, normalized numpy arrays
-│   └── labels/             # corresponding label arrays (160x192x224)
-├── notebooks/              # training & analysis notebooks
-├── src/
-│   ├── preprocessing.py
-│   ├── models/
-│   │   ├── unet3d.py
-│   │   └── efficientnet_classifier.py
-│   ├── train.py
-│   ├── evaluate.py
-│   └── inference.py
-├── deployments/
-│   ├── sagemaker/
-│   └── sklearn_pipeline/
-├── results/
-│   ├── metrics/
-│   └── figures/
-├── README_BrainSegmentation.md
-└── requirements.txt
-```
+
 
 ## How Data Flows (high-level)
 1. Raw MRI and labels are uploaded to **S3**.
@@ -80,25 +56,9 @@ brain_segmentation/
 5. Postprocessing converts masks to region volumes; statistical scripts perform Mann–Whitney U tests and save reports.
 6. Models are wrapped into SageMaker endpoints or an sklearn pipeline for deployment.
 
-## Reproducing Training (example)
-```bash
-# Install dependencies
-pip install -r requirements.txt
 
-# Preprocess (example)
-python src/preprocessing.py --input-s3 s3://your-bucket/raw --output-s3 s3://your-bucket/processed
 
-# Train segmentation
-python src/train.py --config configs/unet3d_config.yaml
-
-# Evaluate
-python src/evaluate.py --model checkpoints/unet3d_final.pth --test-data data/processed/test
-
-# Deploy
-python deployments/sagemaker/deploy.sh --model checkpoints/unet3d_final.pth
-```
-
-## Notes & Observations (from provided PDF)
+## Notes & Observations 
 - Segmentation model used a 3D U-Net with attention and achieved **~51% accuracy** (Dice or accuracy unclear in report).
 - Tumor detection used EfficientNetB0 and reported **~20% accuracy** — suggests either class imbalance, limited data, or training/config issues.
 - Statistical testing (Mann–Whitney U) reported p-value **= 1.000**, indicating no detected difference for the compared cohorts in the provided analysis.
@@ -111,7 +71,7 @@ python deployments/sagemaker/deploy.sh --model checkpoints/unet3d_final.pth
 ---
 
 ## Attached Architecture Diagram
-I generated a simple architecture diagram saved as `brain_architecture.png`. You can download it using the link provided below.
+
 
 ---
 
